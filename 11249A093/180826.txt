@@ -1,0 +1,67 @@
+SQL> SELECT STUDENT_NAME, STUDENT_REGNO, STUDENT1.COURSEID FROM STUDENT1, COURSE1;
+
+STUDENT_NAME              STUDENT_REGNO     COURSEID                            
+------------------------- --------------- ----------                            
+THARISH REDDY             11249A093              990                            
+THARISH REDDY             11249A093              990                            
+THARISH REDDY             11249A093              990                            
+JANAKIRAMI REDDY          11249A062              990                            
+JANAKIRAMI REDDY          11249A062              990                            
+JANAKIRAMI REDDY          11249A062              990                            
+SUDHEER                   11249A043              910                            
+SUDHEER                   11249A043              910                            
+SUDHEER                   11249A043              910                            
+CHANDU                    11249A101              911                            
+CHANDU                    11249A101              911                            
+
+STUDENT_NAME              STUDENT_REGNO     COURSEID                            
+------------------------- --------------- ----------                            
+CHANDU                    11249A101              911                            
+VAMSI                     11249A032              910                            
+VAMSI                     11249A032              910                            
+VAMSI                     11249A032              910                            
+VISHNU                    11249A056              990                            
+VISHNU                    11249A056              990                            
+VISHNU                    11249A056              990                            
+HEMESH                    11249A300              911                            
+HEMESH                    11249A300              911                            
+HEMESH                    11249A300              911                            
+SANDEEP                   11249A041              910                            
+
+STUDENT_NAME              STUDENT_REGNO     COURSEID                            
+------------------------- --------------- ----------                            
+SANDEEP                   11249A041              910                            
+SANDEEP                   11249A041              910                            
+RAJU                      11249A0999             911                            
+RAJU                      11249A0999             911                            
+RAJU                      11249A0999             911                            
+RAMU                      11249A992              910                            
+RAMU                      11249A992              910                            
+RAMU                      11249A992              910                            
+
+30 rows selected.
+
+SQL> 
+SQL> SELECT  STUDENT_NAME,STUDENT_REGNO,STUDENT1.COURSEID,COURSENAME,STUDENT_AGE FROM STUDENT1,COURSE1  WHERE STUDENT1.COURSEID=COURSE1.COURSEID;
+
+STUDENT_NAME              STUDENT_REGNO     COURSEID COURSENAM STUDENT_AGE      
+------------------------- --------------- ---------- --------- -----------      
+THARISH REDDY             11249A093              990 CSE                20      
+JANAKIRAMI REDDY          11249A062              990 CSE                19      
+SUDHEER                   11249A043              910 ECE                22      
+CHANDU                    11249A101              911 MECH               19      
+VAMSI                     11249A032              910 ECE                21      
+VISHNU                    11249A056              990 CSE                19      
+HEMESH                    11249A300              911 MECH               20      
+SANDEEP                   11249A041              910 ECE                19      
+RAJU                      11249A0999             911 MECH               24      
+RAMU                      11249A992              910 ECE                23      
+
+10 rows selected.
+
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SPOOL OFF

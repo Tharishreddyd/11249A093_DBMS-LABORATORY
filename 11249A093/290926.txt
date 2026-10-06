@@ -1,0 +1,189 @@
+SQL> CREATE TABLE STUDENT3
+  2  (
+  3  STUDENT_ID NUMBER(5) PRIMARY KEY,
+  4  STUDENT_NAME VARCHAR2(30),
+  5  MARKS NUMBER(3)
+  6  );
+
+Table created.
+
+SQL> INSERT INTO STUDENT3 VALUES(093,'THARISH REDDY',90);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT3 VALUES(062,'JANAKI RAM',99);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT3 VALUES(101,'CHANDU',95);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> CREATE OR REPLACE PROCEDURE GET_STUDENT3
+  2  (
+  3      P_ID IN NUMBER
+  4  )
+  5  IS
+  6      V_NAME STUDENT3.STUDENT_NAME%TYPE;
+  7      V_MARKS STUDENT3.MARKS%TYPE;
+  8  BEGIN
+  9      SELECT STUDENT_NAME, MARKS
+ 10      INTO V_NAME, V_MARKS
+ 11      FROM STUDENT3
+ 12      WHERE STUDENT_ID = P_ID;
+ 13  
+ 14      DBMS_OUTPUT.PUT_LINE('STUDENT NAME :' || V_NAME);
+ 15      DBMS_OUTPUT.PUT_LINE('MARKS        :' || V_MARKS);
+ 16  
+ 17  EXCEPTION
+ 18      WHEN NO_DATA_FOUND THEN
+ 19          DBMS_OUTPUT.PUT_LINE('STUDENT RECORD NOT FOUND.');
+ 20  END;
+ 21  /
+
+Procedure created.
+
+SQL> SET SERVEROUTPUT ON;
+SQL> 
+SQL> EXEC GET_STUDENT(101);
+BEGIN GET_STUDENT(101); END;
+
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7: 
+PLS-00201: identifier 'GET_STUDENT' must be declared 
+ORA-06550: line 1, column 7: 
+PL/SQL: Statement ignored 
+
+
+SQL> SET SERVEROUTPUT ON;
+SQL> 
+SQL> EXEC GET_STUDENT(093);
+BEGIN GET_STUDENT(093); END;
+
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7: 
+PLS-00201: identifier 'GET_STUDENT' must be declared 
+ORA-06550: line 1, column 7: 
+PL/SQL: Statement ignored 
+
+
+SQL> SET SERVEROUTPUT ON;
+SQL> 
+SQL> EXEC GET_STUDENT3(93);
+STUDENT NAME :THARISH REDDY                                                     
+MARKS        :90                                                                
+
+PL/SQL procedure successfully completed.
+
+SQL> CREATE OR REPLACE FUNCTION FIND_GRADE
+  2  (
+  3    P_MARKS NUMBER
+  4  )
+  5  RETURN VARCHAR2
+  6  IS
+  7    V_GRADE VARCHAR2(2);
+  8  BEGIN
+  9       IF P_MARKS >=90 THEN
+ 10          V_GRADE := 'O';
+ 11       ELSIF P_MARKS >=80 THEN
+ 12          V_GRADE := 'A+';
+ 13       ELSIF P_MARKS >=70 THEN
+ 14          V_GRADE := 'A';
+ 15       ELSIF P_MARKS >=60 THEN
+ 16          V_GRADE :='B';
+ 17       ELSE
+ 18          V_GRADE := 'C';
+ 19       END IF;
+ 20  
+ 21       RETURN V_GRADE;
+ 22  END;
+ 23  /
+
+Function created.
+
+SQL> SELECT FIND_GRADE(90)AS GRADE FROM DUAL;
+
+GRADE                                                                           
+--------------------------------------------------------------------------------
+O                                                                               
+
+SQL> SELECT FIND_GRADE(99)AS GRADE FROM DUAL;
+
+GRADE                                                                           
+--------------------------------------------------------------------------------
+O                                                                               
+
+SQL> SELECT STUDENT_ID,STUDENT_NAME,MARKS,
+  2         FIND GRADE(MARKS) AS GRADE
+  3  FROM STUDENT3;
+       FIND GRADE(MARKS) AS GRADE
+                 *
+ERROR at line 2:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT STUDENT_ID,
+  2         STUDENT_NAME,
+  3         MARKS,
+  4         FIND_GRADE(MARKS) AS GRADE
+  5  FROM STUDENT3;
+
+STUDENT_ID STUDENT_NAME                        MARKS                            
+---------- ------------------------------ ----------                            
+GRADE                                                                           
+--------------------------------------------------------------------------------
+        93 THARISH REDDY                          90                            
+O                                                                               
+                                                                                
+        62 JANAKI RAM                             99                            
+O                                                                               
+                                                                                
+       101 CHANDU                                 95                            
+O                                                                               
+                                                                                
+
+SQL> SELECT OBJECT_NAME,OBJECT_TYPE
+  2  FROM USER_OBJECTS
+  3  WHERE OBJECT_TYPE = 'PROCEDURE';
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+GET_STUDENT2                                                                    
+PROCEDURE                                                                       
+                                                                                
+GET_STUDENT3                                                                    
+PROCEDURE                                                                       
+                                                                                
+
+SQL> SELECT OBJECT_NAME,OBJECT_TYPE
+  2  FROM USER_OBJECTS
+  3  WHERE OBJECT_TYPE = 'FUNCTION';
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+FIND_GRADE                                                                      
+FUNCTION                                                                        
+                                                                                
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> spool off;

@@ -1,0 +1,171 @@
+SQL> SELECT
+  2      S1.STUDENT_NAME AS STUDENT1,
+  3      S2.STUDENT_NAME AS STUDENT2,
+  4      S1.COURSEID
+  5  FROM STUDENT1 S1
+  6  JOIN STUDENT1 S2
+  7  ON S1.COURSEID = S2.COURSEID
+  8  AND S1.STUDENT_REGNO < S2.STUDENT_REGNO;
+
+STUDENT1                  STUDENT2                    COURSEID                  
+------------------------- ------------------------- ----------                  
+JANAKIRAMI REDDY          THARISH REDDY                    990                  
+SUDHEER                   RAMU                             910                  
+CHANDU                    HEMESH                           911                  
+VAMSI                     SANDEEP                          910                  
+VAMSI                     SUDHEER                          910                  
+VAMSI                     RAMU                             910                  
+VISHNU                    JANAKIRAMI REDDY                 990                  
+VISHNU                    THARISH REDDY                    990                  
+SANDEEP                   SUDHEER                          910                  
+SANDEEP                   RAMU                             910                  
+RAJU                      CHANDU                           911                  
+
+STUDENT1                  STUDENT2                    COURSEID                  
+------------------------- ------------------------- ----------                  
+RAJU                      HEMESH                           911                  
+
+12 rows selected.
+
+SQL> SELECT
+  2       A.STUDENT_REGNO,
+  3       B.COURSEID,
+  4       B.COURSENAME
+  5  FROM STUDENT1 A,COURSE1
+  6  WHERE A.COURSEID(+)=B.COURSEID;
+WHERE A.COURSEID(+)=B.COURSEID
+                    *
+ERROR at line 6:
+ORA-00904: "B"."COURSEID": invalid identifier 
+
+
+SQL> SELECT
+  2       A.STUDENT_REGNO,
+  3       B.COURSEID,
+  4       B.COURSENAME
+  5  FROM STUDENT1 A,COURSE1 B
+  6  WHERE A.COURSEID(+)=B.COURSEID;
+
+STUDENT_REGNO     COURSEID COURSENAM                                            
+--------------- ---------- ---------                                            
+11249A032              910 ECE                                                  
+11249A041              910 ECE                                                  
+11249A992              910 ECE                                                  
+11249A043              910 ECE                                                  
+11249A0999             911 MECH                                                 
+11249A101              911 MECH                                                 
+11249A300              911 MECH                                                 
+11249A056              990 CSE                                                  
+11249A062              990 CSE                                                  
+11249A093              990 CSE                                                  
+
+10 rows selected.
+
+SQL> 
+SQL> CREATE TABLE ALUMNI(
+  2  STUDENT_NAME);
+STUDENT_NAME)
+*
+ERROR at line 2:
+ORA-02263: need to specify the datatype for this column 
+
+
+SQL> CREATE TABLE ALUMNI(
+  2  STUDENT_NAME VARCAHR2(30));
+STUDENT_NAME VARCAHR2(30))
+                     *
+ERROR at line 2:
+ORA-00907: missing right parenthesis 
+
+
+SQL> 
+SQL> CREATE TABLE ALUMNI(
+  2  STUDENT_NAME VARCHAR2(30));
+
+Table created.
+
+SQL> INSERT INTO ALUMINI VALUES('THARISH REDDY');
+INSERT INTO ALUMINI VALUES('THARISH REDDY')
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> INSERT INTO ALUMINI VALUES('JANAKIRAMI REDDY');
+INSERT INTO ALUMINI VALUES('JANAKIRAMI REDDY')
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> INSERT INTO ALUMINI VALUES('CHANDU');
+INSERT INTO ALUMINI VALUES('CHANDU')
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> INSERT INTO ALUMNI VALUES('THARISH REDDY');
+
+1 row created.
+
+SQL> INSERT INTO ALUMNI VALUES('JANAKIRAMI REDDY');
+
+1 row created.
+
+SQL> INSERT INTO ALUMNI VALUES('CHANDU');
+
+1 row created.
+
+SQL> SELECT*
+  2  FROM STUDENT1
+  3  WHERE COURSENAME IN('CSE','MECH');
+WHERE COURSENAME IN('CSE','MECH')
+      *
+ERROR at line 3:
+ORA-00904: "COURSENAME": invalid identifier 
+
+
+SQL> SELECT*
+  2  FROM STUDENT1
+  3  WHERE COURSEID IN(990,910);
+
+STUDENT_NAME              STUDENT_REGNO     COURSEID                            
+------------------------- --------------- ----------                            
+STUDENT_EMAIL                                      STUDENT_GE STUDENT_AGE       
+-------------------------------------------------- ---------- -----------       
+THARISH REDDY             11249A093              990                            
+11249a093@kanchiuniv.ac.in                         M                   20       
+                                                                                
+JANAKIRAMI REDDY          11249A062              990                            
+11249a062@kanchiuniv.ac.in                         M                   19       
+                                                                                
+SUDHEER                   11249A043              910                            
+11249a043@kanchiuniv.ac.in                         M                   22       
+                                                                                
+
+STUDENT_NAME              STUDENT_REGNO     COURSEID                            
+------------------------- --------------- ----------                            
+STUDENT_EMAIL                                      STUDENT_GE STUDENT_AGE       
+-------------------------------------------------- ---------- -----------       
+VAMSI                     11249A032              910                            
+11249a032@kanchiuniv.ac.in                         M                   21       
+                                                                                
+VISHNU                    11249A056              990                            
+11249a056@kanchiuniv.ac.in                         M                   19       
+                                                                                
+SANDEEP                   11249A041              910                            
+11249a041@kanchiuniv.ac.in                         M                   19       
+                                                                                
+
+STUDENT_NAME              STUDENT_REGNO     COURSEID                            
+------------------------- --------------- ----------                            
+STUDENT_EMAIL                                      STUDENT_GE STUDENT_AGE       
+-------------------------------------------------- ---------- -----------       
+RAMU                      11249A992              910                            
+11249a992@kanchiuniv.ac.in                         M                   23       
+                                                                                
+
+7 rows selected.
+
+SQL> spool off

@@ -1,0 +1,176 @@
+SQL> CREATE TABLE  COURSE1 (
+  2  COURSENAME VARCHAR2(9),
+  3  COURSEID NUMBER(15));
+
+Table created.
+
+SQL> ALTER TABLE COURSE1 MODIFY COURSEID NUMBER(9)PRIMARY KEY;
+
+Table altered.
+
+SQL> CREATE TABLE STUDENT1(
+  2  STUDENT_NAME  VARCHAR2(25),
+  3  STUDENT_REGNO VARCHAR2(15),
+  4  STUDENT_COURSEID NUMBER(15),
+  5  STUDENT_EMAIL VARCHAR2(50),
+  6  STUDENT_GENDER CHAR(10),
+  7  STUDENT_AGE NUMBER(2));
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> ALTER TABLE STUDENT1 MODIFY(
+  2  STUDENT_NAME VARCHAR2(25)NOT NULL,
+  3  STUDENT_REGNO VARCHAR2(15)PRIMARY KEY,
+  4  STUDENT_COURSEID NUMBER(15)REFERENCES COURSE1(COURSEID),
+  5  STUDENT_EMAIL VARCHAR2(50)UNIQUE,
+  6  STUDENT_GENDER CHAR(10)DEFAULT'M',
+  7  STUDENT_AGE NUMBER(2)CHECK(STUDENT_AGE>=18));
+
+Table altered.
+
+SQL> INSERT INTO COURSE1  VALUES('CSE',0990);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES(
+  2  'THARISH REDDY','11249A093',0990,'11249a093@kanchiuniv.ac.in','M',20);
+
+1 row created.
+
+SQL> desc student1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT_NAME                              NOT NULL VARCHAR2(25)
+ STUDENT_REGNO                             NOT NULL VARCHAR2(15)
+ STUDENT_COURSEID                                   NUMBER(15)
+ STUDENT_EMAIL                                      VARCHAR2(50)
+ STUDENT_GENDER                                     CHAR(10)
+ STUDENT_AGE                                        NUMBER(2)
+
+SQL> select*from student1;
+
+STUDENT_NAME              STUDENT_REGNO   STUDENT_COURSEID                      
+------------------------- --------------- ----------------                      
+STUDENT_EMAIL                                      STUDENT_GE STUDENT_AGE       
+-------------------------------------------------- ---------- -----------       
+THARISH REDDY             11249A093                    990                      
+11249a093@kanchiuniv.ac.in                         M                   20       
+                                                                                
+
+SQL> select student_name,student_regno from student1;
+
+STUDENT_NAME              STUDENT_REGNO                                         
+------------------------- ---------------                                       
+THARISH REDDY             11249A093                                             
+
+SQL> INSERT INTO STUDENT1 VALUES('JANAKIRAMI REDDY','11249A062',0990,'11249a062@kanchiuniv.ac.in','M',19);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES('SUDHEER','11249A043',0910,'11249a043@kanchiuniv.ac.in','M',22);
+INSERT INTO STUDENT1 VALUES('SUDHEER','11249A043',0910,'11249a043@kanchiuniv.ac.in','M',22)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (A093.SYS_C0031708) violated - parent key not 
+found 
+
+
+SQL> INSERT INTO COURSE1  VALUES('ECE',0910);
+
+1 row created.
+
+SQL> INSERT INTO COURSE1  VALUES('MECH',0911);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES('SUDHEER','11249A043',0910,'11249a043@kanchiuniv.ac.in','M',22);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES('CHANDU','11249A101',0911,'11249a101@kanchiuniv.ac.in','M',19);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES('VAMSI','11249A032',0910,'11249a032@kanchiuniv.ac.in','M',21);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO STUDENT1 VALUES('VISHNU','11249A056',0990,'11249a056@kanchiuniv.ac.in','M',19);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES('HEMESH','11249A300',0911,'11249a300@kanchiuniv.ac.in','M',20);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES('SANDEEP','11249A041',0910,'11249a041@kanchiuniv.ac.in','M',19);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES('RAJU','11249A0999',0911,'11249a0999@kanchiuniv.ac.in','M',24);
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES('RAMU','11249A992',0910,'11249a992@kanchiuniv.ac.in','M',23);
+
+1 row created.
+
+SQL> 
+SQL> SELECT*FROM STUDENT1;
+
+STUDENT_NAME              STUDENT_REGNO   STUDENT_COURSEID                      
+------------------------- --------------- ----------------                      
+STUDENT_EMAIL                                      STUDENT_GE STUDENT_AGE       
+-------------------------------------------------- ---------- -----------       
+THARISH REDDY             11249A093                    990                      
+11249a093@kanchiuniv.ac.in                         M                   20       
+                                                                                
+JANAKIRAMI REDDY          11249A062                    990                      
+11249a062@kanchiuniv.ac.in                         M                   19       
+                                                                                
+SUDHEER                   11249A043                    910                      
+11249a043@kanchiuniv.ac.in                         M                   22       
+                                                                                
+
+STUDENT_NAME              STUDENT_REGNO   STUDENT_COURSEID                      
+------------------------- --------------- ----------------                      
+STUDENT_EMAIL                                      STUDENT_GE STUDENT_AGE       
+-------------------------------------------------- ---------- -----------       
+CHANDU                    11249A101                    911                      
+11249a101@kanchiuniv.ac.in                         M                   19       
+                                                                                
+VAMSI                     11249A032                    910                      
+11249a032@kanchiuniv.ac.in                         M                   21       
+                                                                                
+VISHNU                    11249A056                    990                      
+11249a056@kanchiuniv.ac.in                         M                   19       
+                                                                                
+
+STUDENT_NAME              STUDENT_REGNO   STUDENT_COURSEID                      
+------------------------- --------------- ----------------                      
+STUDENT_EMAIL                                      STUDENT_GE STUDENT_AGE       
+-------------------------------------------------- ---------- -----------       
+HEMESH                    11249A300                    911                      
+11249a300@kanchiuniv.ac.in                         M                   20       
+                                                                                
+SANDEEP                   11249A041                    910                      
+11249a041@kanchiuniv.ac.in                         M                   19       
+                                                                                
+RAJU                      11249A0999                   911                      
+11249a0999@kanchiuniv.ac.in                        M                   24       
+                                                                                
+
+STUDENT_NAME              STUDENT_REGNO   STUDENT_COURSEID                      
+------------------------- --------------- ----------------                      
+STUDENT_EMAIL                                      STUDENT_GE STUDENT_AGE       
+-------------------------------------------------- ---------- -----------       
+RAMU                      11249A992                    910                      
+11249a992@kanchiuniv.ac.in                         M                   23       
+                                                                                
+
+10 rows selected.
+
+SQL> spool off

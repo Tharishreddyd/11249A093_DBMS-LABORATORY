@@ -1,0 +1,148 @@
+SQL> create table course(
+  2  course_id Number(2)Primary Key,
+  3  course_name Varchar2(5)Not Null
+  4  );
+
+Table created.
+
+SQL> create table student(
+  2  student_regno Varchar2(10) Primary Key,
+  3  student_Name Varchar2(20)Not Null,
+  4  student_course_id Number(2)References course(course_id),
+  5  student_mail Varchar2(20)Unique,
+  6  student_age Number(2) Check(student_age>=18),
+  7  student_gender Char(2)Default 'M'
+  8  );
+
+Table created.
+
+SQL> INSERT INTO COURSE VALUES(01,'CSE');
+
+1 row created.
+
+SQL> INSERT INTO COURSE VALUES(02,'EEE');
+
+1 row created.
+
+SQL> INSERT INTO COURSE VALUES(093,'CHEMICAL');
+INSERT INTO COURSE VALUES(093,'CHEMICAL')
+                              *
+ERROR at line 1:
+ORA-12899: value too large for column "A093"."COURSE"."COURSE_NAME" (actual: 8, 
+maximum: 5) 
+
+
+SQL> INSERT INTO COURSE VALUES(09,'CHEMICAL');
+INSERT INTO COURSE VALUES(09,'CHEMICAL')
+                             *
+ERROR at line 1:
+ORA-12899: value too large for column "A093"."COURSE"."COURSE_NAME" (actual: 8, 
+maximum: 5) 
+
+
+SQL> INSERT INTO COURSE VALUES(101,'CHEM');
+INSERT INTO COURSE VALUES(101,'CHEM')
+                          *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column 
+
+
+SQL> INSERT INTO COURSE VALUES(10,'CHEM');
+
+1 row created.
+
+SQL> INSERT INTO COURSE VALUES(010,'ECE');
+INSERT INTO COURSE VALUES(010,'ECE')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (A093.SYS_C0029396) violated 
+
+
+SQL> INSERT INTO COURSE VALUES(009,'MECH');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT VALUES(A093,'THARISH REDDY',01,'tharishreddyd@gmail.com',20);
+INSERT INTO STUDENT VALUES(A093,'THARISH REDDY',01,'tharishreddyd@gmail.com',20)
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> INSERT INTO STUDENT VALUES('0A093','THARISH REDDY',01,'tharishreddyd@gmail.com',20);
+INSERT INTO STUDENT VALUES('0A093','THARISH REDDY',01,'tharishreddyd@gmail.com',20)
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> INSERT INTO STUDENT VALUES('093','THARISH REDDY',01,'tharishreddyd@gmail.com',20);
+INSERT INTO STUDENT VALUES('093','THARISH REDDY',01,'tharishreddyd@gmail.com',20)
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> INSERT INTO STUDENT VALUES('093','THARISH REDDY',01,'tharishreddyd@gmail.com',20,'M');
+INSERT INTO STUDENT VALUES('093','THARISH REDDY',01,'tharishreddyd@gmail.com',20,'M')
+                                                    *
+ERROR at line 1:
+ORA-12899: value too large for column "A093"."STUDENT"."STUDENT_MAIL" (actual: 
+23, maximum: 20) 
+
+
+SQL> INSERT INTO STUDENT VALUES('093','THARISH REDDY',01,'tharishreddy@gmail.com',20,'M');
+INSERT INTO STUDENT VALUES('093','THARISH REDDY',01,'tharishreddy@gmail.com',20,'M')
+                                                    *
+ERROR at line 1:
+ORA-12899: value too large for column "A093"."STUDENT"."STUDENT_MAIL" (actual: 
+22, maximum: 20) 
+
+
+SQL> INSERT INTO STUDENT VALUES('093','THARISH REDDY',01,'saireddy@gmail.com',20,'M');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT VALUES('062','JANAKI RAMI REDDY',01,'ramireddy@gmail.com',19,'M');
+
+1 row created.
+
+SQL> nsert into student values('11249a043','sudheer',10,'sudheer@gmail.com',23,'M');
+SP2-0734: unknown command beginning "nsert into..." - rest of line ignored.
+SQL> insert into student values('11249a043','sudheer',10,'sudheer@gmail.com',23,'M');
+
+1 row created.
+
+SQL> insert into student values('11249a101','chandhu',02,'chandhu@gmail.com',19,'M');
+
+1 row created.
+
+SQL> select*from student;
+
+STUDENT_RE STUDENT_NAME         STUDENT_COURSE_ID STUDENT_MAIL                  
+---------- -------------------- ----------------- --------------------          
+STUDENT_AGE ST                                                                  
+----------- --                                                                  
+093        THARISH REDDY                        1 saireddy@gmail.com            
+         20 M                                                                   
+                                                                                
+062        JANAKI RAMI REDDY                    1 ramireddy@gmail.com           
+         19 M                                                                   
+                                                                                
+11249a043  sudheer                             10 sudheer@gmail.com             
+         23 M                                                                   
+                                                                                
+
+STUDENT_RE STUDENT_NAME         STUDENT_COURSE_ID STUDENT_MAIL                  
+---------- -------------------- ----------------- --------------------          
+STUDENT_AGE ST                                                                  
+----------- --                                                                  
+11249a101  chandhu                              2 chandhu@gmail.com             
+         19 M                                                                   
+                                                                                
+
+SQL> Alter table student modify student_mail Varchar2(50);
+
+Table altered.
+
+SQL> spool off;
